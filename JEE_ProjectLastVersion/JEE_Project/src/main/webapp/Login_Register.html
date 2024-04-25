@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="source/loginStyle.css" />
+    <script src="source/loginScript.js" defer></script>
+    <title>Login Client</title>
+  </head>
+  <body>
+    <nav>
+      <a href="">
+        <i class="fa-solid fa-mountain"></i>
+        Travel Wings
+      </a>
+      <div>
+        <a href="index.html">Home</a>
+        <a href="destination.html">Travel Booking</a>
+        <a href="">About Me</a>
+      </div>
+      <div class="col-sm-6 col-md-4 col-lg-3">
+        <div class="dropdown-toggle" id="profileDropdown">
+          <a href="Login_Register.html"><svg 
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="feather feather-user"
+          >
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+            <circle cx="12" cy="7" r="4"></circle>
+          </svg></a>
+          
+        </div>
+      </div>
+      </a>
+    </nav>
+    <script>
+            // JavaScript code to display error message if error parameter is present in the URL
+            var urlParams = new URLSearchParams(window.location.search);
+            var error = urlParams.get('error');
+            if (error === '1') {
+                document.write('<p class="error-message">Invalid username or password. Please try again.</p>');
+            }
+            var msg = urlParams.get('msg');
+            if (msg === '4') {
+                document.write('<p class="success-message">Register is complete.</p>');
+            }
+        </script>
+    <div class="container" id="container">
+      <div class="form-container sign-up-container">
+        <form action="/JEE_Project/register" method="post">
+          <h1>Create Account</h1>
+          <br />
+          <input type="text" placeholder="Name" name="username" />
+          <input type="email" placeholder="Email" name="email" required />
+          <input type="password" placeholder="Password" name="password" required/>
+          <button type="submit">Sign Up</button>
+        </form>
+      </div>
+      <div class="form-container sign-in-container">
+        <form action="/JEE_Project/login" method="post">
+          <h1>Sign in</h1>
+          <br />
+          <input type="email" placeholder="Email" name="email" required/>
+          <input type="password" placeholder="Password" name="password" required />
+          <a href="#">Forgot your password?</a>
+          <button type="submit">Sign In</button>
+        </form>
+      </div>
+      <div class="overlay-container">
+        <div class="overlay">
+          <div class="overlay-panel overlay-left">
+            <h1>Welcome Back!</h1>
+            <p>
+              To keep connected with us please login with your personal info
+            </p>
+            <button class="ghost" id="signIn">Sign In</button>
+          </div>
+          <div class="overlay-panel overlay-right">
+            <h1>Hello, Friend!</h1>
+            <p>Enter your personal details and start journey with us</p>
+            <button class="ghost" id="signUp">Sign Up</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

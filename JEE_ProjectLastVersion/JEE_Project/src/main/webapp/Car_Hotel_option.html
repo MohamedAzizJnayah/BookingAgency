@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<!---Coding By CodingLab | www.codinglabweb.com--->
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <!--<title>Registration Form in HTML CSS</title>-->
+    <!---Custom CSS File--->
+    <link rel="stylesheet" href="source/styleReserv.css" />
+        <title>Car And Hotel Reservation</title>
+    
+  </head>
+  <body>
+    <div>
+      <a href="Reservation_Form.html" class="previous round top-left">&#8249;</a>
+    </div>
+    <div>
+      <section class="container">
+        <header>Book your car and your hotel room</header>
+        <script>
+            // JavaScript code to display error message if error parameter is present in the URL
+            var urlParams = new URLSearchParams(window.location.search);
+            var error = urlParams.get('error');
+            if (error === '3') {
+                document.write('<p class="error-message">Choose The Car Model And The Name Of The Hotel ! </p>');
+            }
+        </script>
+        <form action="/JEE_Project/FlightFinalBooking" method="post" class="form">
+          <div class="input-box">
+            <label>Full Name</label>
+            <input type="text" id="clientName" placeholder="" name="clientName" readonly  required />
+          </div>
+          <div class="input-box">
+            <label>Email Address </label>
+            <input type="email" id="emailAddress" placeholder="" name="emailAddress" readonly  required />
+          </div>
+          <div class="input-box">
+            <label>Phone Number </label>
+            <input type="number" id="phoneNumber" placeholder="" name="phoneNumber" readonly  required />
+          </div>
+          <div class="input-box">
+            <label>Flight Destination </label>
+            <input type="text" id="flightDestination" placeholder="" name="flightDestination" readonly  required />
+          </div>
+          <div class="input-box">
+            <label>Flight Price </label>
+            <input type="number" id="flightPrice" placeholder="" name="flightPrice" readonly  required />
+          </div>
+          
+          <div class="input-box address">
+            <label>Car Model</label>
+            <div class="column">
+              <div class="select-box">
+                <select id="carModel" name="carModel" required >
+                  <option>Select Car Model</option>
+                </select>
+              </div>
+            </div>
+            
+              <label>Hotel Name</label>
+            <div class="column">
+              <div class="select-box">
+                <select id="hotelName" name="hotelName" required >
+                  <option>Select Hotel Name</option>
+                </select>
+              </div>
+            </div>
+            
+              <div class="input-box">
+              <label>Reservation Date</label>
+              <input type="date" name="reservationDate" required />
+            </div>
+           
+          </div>
+          <button type="submit">Book</button>          
+        </form>
+        
+            
+      </section>
+    </div>
+<script>
+    // Function to check for confirmation parameter in URL and display confirmation message
+    function displayConfirmationMessage() {
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.has('confirmation') && urlParams.get('confirmation') === '1') {
+            const confirmationMessage = document.createElement('p');
+            confirmationMessage.textContent = 'Reservation successful! Your booking has been confirmed.';
+            confirmationMessage.style.color = 'green';
+            document.body.appendChild(confirmationMessage);
+        }
+    }
+    
+    
+
+    // Call the function when the page loads
+    window.onload = function() {
+        fetchcarmodel();
+        fetchhotelname();
+        displayConfirmationMessage();
+        
+        // Retrieve booking details from URL query parameters and pre-fill the input fields
+        const params = new URLSearchParams(window.location.search);
+        const fullName = params.get('fullName');
+        const emailAddress = params.get('emailAddress');
+        const phoneNumber = params.get('phoneNumber');
+        const flightDestination = params.get('flightDestination');
+        const flightPrice = params.get('flightPrice');
+
+        document.getElementById('clientName').value = fullName;
+        document.getElementById('emailAddress').value = emailAddress;
+        document.getElementById('phoneNumber').value = phoneNumber;
+        document.getElementById('flightDestination').value = flightDestination;
+        document.getElementById('flightPrice').value = flightPrice;
+        
+     
+    };
+</script>
+<script>
+    // Function to fetch car model and hotel name via AJAX
+    function fetchcarmodel() {
+        var xhrCar = new XMLHttpRequest();
+        xhrCar.open("GET", "/JEE_Project/carBooking", true);
+        xhrCar.onreadystatechange = function() {
+            if (xhrCar.readyState === 4 && xhrCar.status === 200) {
+                var models = JSON.parse(xhrCar.responseText);
+                var selectElement = document.getElementById("carModel");
+                models.forEach(function(model) {
+                    var option = document.createElement("option");
+                    option.value = model;
+                    option.text = model;
+                    selectElement.appendChild(option);
+                });
+            }
+        };
+        xhrCar.send();
+    }
+
+    // Function to fetch hotel name via AJAX
+    function fetchhotelname() {
+        var xhrHotel = new XMLHttpRequest();
+        xhrHotel.open("GET", "/JEE_Project/hotelBooking", true);
+        xhrHotel.onreadystatechange = function() {
+            if (xhrHotel.readyState === 4 && xhrHotel.status === 200) {
+                var hotels = JSON.parse(xhrHotel.responseText);
+                var selectElement = document.getElementById("hotelName");
+                hotels.forEach(function(hotel) {
+                    var option = document.createElement("option");
+                    option.value = hotel;
+                    option.text = hotel;
+                    selectElement.appendChild(option);
+                });
+            }
+        };
+        xhrHotel.send();
+    }
+</script>
+
+    
+  </body>
+</html>
